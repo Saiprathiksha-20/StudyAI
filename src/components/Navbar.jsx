@@ -1,7 +1,14 @@
+import { useState } from "react";
+
 import {
   Link,
   useNavigate
 } from "react-router-dom";
+
+import {
+  Menu,
+  X
+} from "lucide-react";
 
 import {
   signOut
@@ -23,6 +30,10 @@ function Navbar() {
   const { user } =
     useAuth();
 
+  const [menuOpen,
+    setMenuOpen] =
+    useState(false);
+
 
   const handleLogout =
     async () => {
@@ -41,7 +52,35 @@ function Navbar() {
         StudyAI
       </h1>
 
-      <div className="nav-links">
+
+      {/* MOBILE MENU ICON */}
+
+      <div
+        className="menu-icon"
+
+        onClick={() =>
+          setMenuOpen(!menuOpen)
+        }
+      >
+
+        {
+          menuOpen
+            ? <X size={30} />
+            : <Menu size={30} />
+        }
+
+      </div>
+
+
+      {/* NAV LINKS */}
+
+      <div
+        className={
+          menuOpen
+            ? "nav-links active"
+            : "nav-links"
+        }
+      >
 
         <Link to="/">
           Home
@@ -87,8 +126,7 @@ function Navbar() {
               </Link>
 
               <button
-                className=
-                "logout-btn"
+                className="logout-btn"
 
                 onClick={
                   handleLogout
